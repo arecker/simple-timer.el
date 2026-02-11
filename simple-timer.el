@@ -24,8 +24,6 @@ If nil, the default system beep will be used."
                  (file :tag "Sound File"))
   :group 'simple-timer)
 
-(setq simple-timer-sound-file "~/.emacs.d/sounds/gong.wav")
-
 (defvar simple-timer/current-duration 0 "Seconds left in current timer.")
 (defvar simple-timer/modeline-string "" "Display in the modeline.")
 (defvar simple-timer/timer nil "Current timer object.")
