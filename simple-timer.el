@@ -41,8 +41,6 @@ If nil, the default system beep will be used."
                                          (optional (group "ec"))
                                          line-end))
 
-(simple-timer/extract-seconds "1 min 10 sec")
-
 (defun simple-timer/extract-seconds (input-string)
   "Extracts seconds from an input string (e.g. \"25:00\" or \"1min 10sec\")."
     (pcase-let ((`(,min ,sec)
