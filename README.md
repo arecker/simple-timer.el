@@ -4,7 +4,9 @@ A simple emacs timer for simple-minded people like myself.
 
 ## Usage
 
-Just run `M-x simple-timer` and follow the prompts.
+To start a timer, just run `M-x simple-timer` and follow the prompts.
+
+Run `M-x simple-timer-cancel` to stop and remove a timer before it goes off.
 
 ## Customization
 
