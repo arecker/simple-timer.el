@@ -23,45 +23,15 @@ If nil, the default system beep will be used."
 (defvar simple-timer/modeline-string "" "Display in the modeline.")
 (defvar simple-timer/timer nil "Current timer object.")
 
-(defvar simple-timer/stamp-pattern (rx line-start
-                                       (group (+ digit))
-                                       (optional ":")
-                                       (optional (group (+ digit)))
-                                       line-end))
-
-(defvar simple-timer/written-pattern (rx line-start
-                                         (group (one-or-more digit))
-                                         (optional " ")
-                                         (optional "m")
-                                         (optional (group "in"))
-                                         (optional " ")
-                                         (optional (group (one-or-more digit)))
-                                         (optional " ")
-                                         (optional "s")
-                                         (optional (group "ec"))
-                                         line-end))
-
-(defun simple-timer/extract-seconds (input-string)
-  "Extracts seconds from an input string (e.g. \"25:00\" or \"1min 10sec\")."
-    (pcase-let ((`(,min ,sec)
-                 (mapcar #'string-to-number
-                         (cond
-                          ((string-match simple-timer/stamp-pattern input-string)
-                           (list (match-string 1 input-string)
-                                 (or (match-string 2 input-string) "0")))
-                          ((string-match simple-timer/written-pattern input-string)
-                           (list (match-string 1 input-string)
-                                 (or (match-string 3 input-string) "0")))
-                          (t (error "invalid input: %s" input-string))))))
-      (+ sec (* 60 min))))
-
-(defun simple-timer (input-string)
+(defun simple-timer (minutes seconds)
   "Start a simple timer in the modeline."
-  (interactive "sTime (e.g. \"25:00\", \"5min 10sec\"): ")
+  (interactive
+   (let ((minutes (read-number "Minutes: " 0))
+         (seconds (read-number "Seconds: " 0)))
+     (list minutes seconds)))
   (add-to-list 'global-mode-string '(:eval simple-timer/modeline-string))
   (simple-timer-cancel)
-  (simple-timer/create-timer
-   (simple-timer/extract-seconds input-string)))
+  (simple-timer/create-timer (+ seconds (* 60 minutes))))
 
 (defun simple-timer/ding ()
   (if simple-timer-sound-file
