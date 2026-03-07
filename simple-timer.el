@@ -4,7 +4,7 @@
 ;; Author: Alex Recker <alex@reckerfamily.com>
 ;; Keywords: timer, countdown, clock
 ;; URL: https://www.github.com/arecker/simple-timer.el
-;; Version: 0.0.0
+;; Version: 1.0.0
 ;; Package-Requires: ((emacs "30.1"))
 
 ;;; Code:
